@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - id: dirs
-        run: echo "::set-output name=dirs::$(find . -type f -name 'snapcraft.yaml' | sed -r 's|\/snap/[^/]+$||' |sort |uniq)"
+        run: echo "::set-output name=dirs::$(find . -type f -name 'snapcraft.yaml' | sed -r 's|\/snap/[^/]+$||' |sort |uniq |jq --raw-input --slurp --compact-output 'split("\n")[:-1]')"
 
   debug:
     runs-on: ubuntu-latest
